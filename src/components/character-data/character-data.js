@@ -3,11 +3,14 @@ import { LitElement, html, css } from 'lit';
 class CharacterData extends LitElement {
     constructor() {
         super();
+        this.data = {};
+        this.active = false;
     }
 
     static get properties() {
         return {
-            data: { type: String }
+            data: { type: String },
+            active: { type: Boolean }
         };
     }
 
@@ -16,28 +19,70 @@ class CharacterData extends LitElement {
     }
 
     _showDescription() {
-        console.log("Show description for:", this.data.name);
+        this.active = !this.active;
     }
 
     static styles = css`
-        figure {
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 4px;
+        :host {
+            display: flex;
+            justify-content: center;
+
+            /* border: 1px solid #51ff00; */
+        }
+
+        div:hover {
+            cursor: pointer;
+        }
+
+        div.active {
+            border: 1px
         }
         
-        figure:hover {
-            cursor: pointer;
+        figure {
+            margin: 0px;
+
+            max-width: 100%;
+            max-height: 100%;
+
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        figure.active {
+            display: flex;
+            border: 0px;
+        }
+
+        figure
+
+        img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        img.active {
+            max-width: 30%;
+            max-height: 30%;
         }
     `;
 
     render() {
-        console.log("Data:", this.data);
         return html`
-        <figure @click=${this._showDescription}>
-            <img src="${this.data.image}" alt="${this.data.name}">
-            <figcaption>${this.data.name}</figcaption>
-        </figure>
+        <div class=${this.active ? 'active' : ''} @click=${this._showDescription}>
+            <figure class=${this.active ? 'active' : ''}>
+                <img class=${this.active ? 'active' : ''} src="${this.data.image}" alt="${this.data.name}">
+                <figcaption>${this.data.name}</figcaption>
+            </figure>
+            ${this.active ? html`
+                <p>
+                    <strong>Status: </strong>${this.data.status}<br/>
+                    <strong>Species: </strong>${this.data.species}<br/>
+                    <strong>Gender: </strong>${this.data.gender}<br/>
+                    <strong>Origin: </strong>${this.data.origin.name}<br/>
+                    <strong>Location: </strong>${this.data.location.name}
+                </p>
+            ` : ''}
+        </div>
         `;
     }
 }
