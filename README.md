@@ -1,7 +1,5 @@
 Este es un proyecto inicializado con Vite.
 
-📦 Requisitos
-
 🔧 Instalación
 
 Clona el repositorio e instala las dependencias:
