@@ -23,7 +23,7 @@ class PageNavigation extends LitElement {
     _changePage(page) {
         this.currentPage = page;
 
-        this.dispatchEvent(new CustomEvent('page-changed', {
+        this.dispatchEvent(new CustomEvent('changed-page', {
             detail: {page},
             bubbles: true,
             composed: true
